@@ -4,6 +4,9 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
 
+// Set timezone to Philippines
+date_default_timezone_set('Asia/Manila');
+
 // Database configuration
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
