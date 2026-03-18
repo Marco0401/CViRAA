@@ -12,7 +12,22 @@ $participantID = $data['participantID'];
 $coach_username = $data['coach_username'];
 $checkpoint = isset($data['checkpoint']) ? $data['checkpoint'] : 'gate';
 
+// Always fetch coach's sport_category and role directly from DB — never trust client
 $conn = getDBConnection();
+
+$admin_stmt = $conn->prepare("SELECT sport_category, role FROM admin WHERE username = ?");
+$admin_stmt->bind_param("s", $coach_username);
+$admin_stmt->execute();
+$admin_result = $admin_stmt->get_result();
+
+if ($admin_result->num_rows === 0) {
+    sendResponse(false, 'Coach account not found');
+}
+
+$admin_data = $admin_result->fetch_assoc();
+$coach_sport_category = $admin_data['sport_category'];
+$coach_role = $admin_data['role'];
+$admin_stmt->close();
 
 // Get student info
 $stmt = $conn->prepare("SELECT id, participantID, fullname, division, event, participant_type FROM students WHERE participantID = ?");
@@ -25,6 +40,15 @@ if ($result->num_rows === 0) {
 }
 
 $student = $result->fetch_assoc();
+
+// Check sport category match — skip only for superadmin
+if ($coach_role !== 'superadmin' && $coach_role !== 'admin') {
+    if (empty($coach_sport_category) || strtoupper(trim($student['event'])) !== strtoupper(trim($coach_sport_category))) {
+        sendResponse(false, "You are not the coach of this athlete. Your sport: " . ($coach_sport_category ?? 'N/A') . ", Athlete's sport: {$student['event']}", [
+            'student' => $student
+        ]);
+    }
+}
 $student_id = $student['id'];
 $today = date('Y-m-d');
 $now = date('Y-m-d H:i:s');

@@ -14,7 +14,7 @@ $password = $data['password'];
 $conn = getDBConnection();
 
 // Prepare statement to prevent SQL injection
-$stmt = $conn->prepare("SELECT id, username, password, profile_picture, full_name, role FROM admin WHERE username = ?");
+$stmt = $conn->prepare("SELECT id, username, password, profile_picture, full_name, role, sport_category FROM admin WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();

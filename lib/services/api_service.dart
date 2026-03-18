@@ -40,8 +40,10 @@ class ApiService {
   static Future<Map<String, dynamic>> scanQR(
     String participantID,
     String coachUsername,
-    String checkpoint,
-  ) async {
+    String checkpoint, {
+    String? sportCategory,
+    String? role,
+  }) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/scan_qr.php'),
@@ -50,6 +52,8 @@ class ApiService {
           'participantID': participantID,
           'coach_username': coachUsername,
           'checkpoint': checkpoint,
+          'sport_category': sportCategory,
+          'role': role,
         }),
       );
 

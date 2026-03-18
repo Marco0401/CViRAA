@@ -1,0 +1,885 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 18, 2026 at 03:45 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cviraa_attendance_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL COMMENT 'Hashed password',
+  `profile_picture` varchar(255) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL COMMENT 'Full name of admin/coach',
+  `role` enum('superadmin','admin','coach','official') DEFAULT 'admin' COMMENT 'User role for permissions',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `sport_category` varchar(100) DEFAULT NULL COMMENT 'Sport category for coach accounts (e.g. BASKETBALL, VOLLEYBALL)',
+  `plain_password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `profile_picture`, `full_name`, `role`, `created_at`, `sport_category`, `plain_password`) VALUES
+(2, 'admin', '$2y$10$djG9Fttls7.k8SKKKvXUrO8kShSkanDf8YQwXISfzxt4P5ej/1aym', 'uploads/admin_profiles/admin_2_1772758819.jpg', NULL, 'superadmin', '2026-03-05 00:56:10', NULL, NULL),
+(96, 'arnis_coach', '$2y$10$j4STU.Supxj0kGltp0kphOA544EUniVtv4A2FyzwNDcaH.JukfecC', NULL, 'JANE  BALANSAG, KARL NIKKO  RESURRECCION, KIMBERLY FLORES, MARY ANN GEMOTA', 'coach', '2026-03-18 02:38:15', 'ARNIS', 'vLLCWA-8GavMz-LHudiQ-zuWKMj'),
+(97, 'athletics_coach', '$2y$10$0L6c/SyCbamQnaBlk8Itf.AavW56lO8f/KQZOYnVuPaG3SJXNPI3a', NULL, 'ANALYN MINOR, CHERYL RAMOS, ELANNIENE PUERTO, JULIUS CORTES, ROSELYN YORONG, Test_Coach', 'coach', '2026-03-18 02:38:15', 'ATHLETICS', '7rMMtM-TP5uqf-ipL2V6-FTqawG'),
+(98, 'athletics15b_coach', '$2y$10$rIwNrR5NJXgRmmlpn8/TF.eIVDqWx8EVFGZTh50eQRW.Hep3834Ka', NULL, 'JESSAH MAE GAÑOLON, MELYN ANTONI', 'coach', '2026-03-18 02:38:15', 'ATHLETICS - 15 BELOW - BOYS - ID', 'S9eJwP-SrvqrP-vhHMyp-fZuEXQ'),
+(99, 'badminton_coach', '$2y$10$SSMCbHwZOcDueZ2vL2g7J.o69K3VZNk3Y/gHU2ZuUmDIhhma.mBqi', NULL, 'FREYA MAE FERNANDEZ, METCHIE JANE BORJA, MICHAELA MAREE SEBIAL, VANGIE FERNANDEZ', 'coach', '2026-03-18 02:38:15', 'BADMINTON', 'Ytu3EH-GyNyDh-RHw3Wc-AS7NQj'),
+(100, 'baseball_coach', '$2y$10$iOCqA1tuTMnA6UDInJ43O.5Ozdks4mQLdsY8ngjOA3oOCSsumpopO', NULL, '', 'coach', '2026-03-18 02:38:15', 'BASEBALL', 'vrkFvF-7Mqybb-fEAwNi-fHrKDn'),
+(101, 'basketball_coach', '$2y$10$djySDhvAVPmQdOdTaFkIcuz2G.0WUsS.ot099Kd89qWYakpcJedjK', NULL, 'AIA OBISO, ALVA PILLERIN', 'coach', '2026-03-18 02:38:15', 'BASKETBALL', 'wRMpXY-N3hjDg-TSgNAR-EM6Tpg'),
+(102, 'basketball3x3_coach', '$2y$10$Fjm/qwfUYE66aWguRl8rRu609SL/4L1G.a/03FE8v2URkrDw9pJhG', NULL, 'DAISY OAPER, GIDEON KEM UBALDE', 'coach', '2026-03-18 02:38:15', 'BASKETBALL 3X3', 'DNS4Ws-6CYwA8-5E3VAi-zNULqL'),
+(103, 'billiards_coach', '$2y$10$9Lm4sngfZkfXqUkohM9Eiu9T6OB/BBCQVZXTsqEjgaQEcp8OFTp2a', NULL, 'AISA NIÑA  DAMAYO, RENABETH AREMON', 'coach', '2026-03-18 02:38:15', 'BILLIARDS', 'kcts7b-heZAvE-vw5KTy-fPLGDK'),
+(104, 'boxing_coach', '$2y$10$nBlIgKFCoDDCDTALzIkyBOQxw8eK4STYEAch9ggYRVxAbt5D371M2', NULL, 'LOUELLA EMBUSCADO', 'coach', '2026-03-18 02:38:15', 'BOXING', 'WvAiTY-eEn5ME-w7fkMJ-puZvaL'),
+(105, 'chess_coach', '$2y$10$nMluu/F1yupVNnTKpJN9X.DUGo5L43JGUE8cvLVEY3fxU77.cj502', NULL, 'ADEMA RESURRECION, CHARITO SOBREVILLA, GRACE CAROL LEQUIN, LENI RAMA', 'coach', '2026-03-18 02:38:15', 'CHESS', 'uVwiL3-LHHvvy-5Xsgei-T9qjgY'),
+(106, 'dancesports_coach', '$2y$10$RziiaQNNYSqC.sFE3lPTr.i9lcJwMJEXbkQyAGhSHedAUkeHIaLyy', NULL, 'ANGELO LLANOS, ANGELO LLANOS', 'coach', '2026-03-18 02:38:15', 'DANCESPORTS', 'zEhHeh-WTjhcB-8vSKWF-k5WBS4'),
+(107, 'football_coach', '$2y$10$7WZV.5/gwcIN3vpz5uJrOO4Yt.WdaViyT12QmTPKAuyt/tmvL.FXa', NULL, 'GODWIN SECUSANA, JASON CARLO MONTESCLAROS', 'coach', '2026-03-18 02:38:16', 'FOOTBALL', 'GBfAhL-P98Xhx-R4e2WM-dR4jaN'),
+(108, 'futsal_coach', '$2y$10$fcfdM4JJ4aCAs7ClUOVxmOqS1mjuZilpgvtWMyGrjop68jZYg1HD.', NULL, 'DIANE SATUMCACAL, TESSA DAHL CAMPOS', 'coach', '2026-03-18 02:38:16', 'FUTSAL', 'XuTLKf-eMnRYT-2MWhX6-AXBKEf'),
+(109, 'pencaksilat_coach', '$2y$10$Zhr9Ja6mbBT4iDgU0g4koOHQ6RPrLvtPpc8hRmL.GiPIHysyKMvA2', NULL, 'CARLOS JR. MONISIT, CARLOS JR. MONISIT', 'coach', '2026-03-18 02:38:16', 'PENCAK SILAT', 'E4Ydgf-UatTuK-eVnd79-jE5Zkf'),
+(110, 'sepaktakraw_coach', '$2y$10$7C9noiHCOYdL6CVglT0xTelQCi4hbmytcdvfat6QngfimJachrpWa', NULL, 'ISARAEL CANQUE, JESSA ROSALIE ARUTA, JUNRY EÑEGO', 'coach', '2026-03-18 02:38:16', 'SEPAK TAKRAW', 'ewRWnL-jyJqbu-pAtCCp-39K2wt'),
+(111, 'softball_coach', '$2y$10$iGDX7iNoz0eEAGPoo10PD.P92kie5Iz7qtGu66JOby0S1RVjUDL1.', NULL, '', 'coach', '2026-03-18 02:38:16', 'SOFTBALL', 'zXhU8u-93vTVK-3SNLNZ-DgSRGf'),
+(112, 'swimming_coach', '$2y$10$5UwgszSo/PPpLPXXpZigXOC3QHsHatOp16yUmHR.beBM/R9K.0y/S', NULL, 'APRIL MARISE JIMENO, CLOUE FAYE TUMULAK, LANNI  DORIA, MA. LOIDA ALCORDO', 'coach', '2026-03-18 02:38:16', 'SWIMMING', 'zNtJGY-XLF6ug-YUauAA-Z3dsFb'),
+(113, 'tabletennis_coach', '$2y$10$g74ZeU356Nt4SIuE.RfLYOUmmRKvQ67rWC/lWjDeec4w7ebXnfOxO', NULL, 'FELYN MAE BOISER, JENELYN ABAÑO, MARIA VICTORIA RACOMA, RONALD CAMPUGAN', 'coach', '2026-03-18 02:38:16', 'TABLE TENNIS', 'T8Xdpw-S65t4x-Gx6fVy-mH73UJ'),
+(114, 'taekwondo_coach', '$2y$10$0.bE58504Wa51M.JExgdL.xInP56R6FhehqQUHah/1K0rXpj51jfq', NULL, 'EDYZA FATIMA RENSULAT, JEANLY PEARL LAWAS, ORLENE  CANAPE, SHERYL BETONTA', 'coach', '2026-03-18 02:38:16', 'TAEKWONDO', 'Vk746c-54g4dT-wT7k5W-DaE3w9'),
+(115, 'tennis_coach', '$2y$10$S/d/0E7j4JR6Y/l/xVT4l.cIeJ23CWi6xR5ruGLFTKh7XYr0cbt.i', NULL, 'JENNIE YBAÑEZ, JENNIFER SAAVEDRA, JHUN MARK SASAN, NIÑA CHRISTY LEDESMA', 'coach', '2026-03-18 02:38:16', 'TENNIS', 'RrXp8B-UDvj9y-pbAxSV-tdvA2i'),
+(116, 'volleyball_coach', '$2y$10$HnknJFiLTQFT.jMiJxopX.wGy4WTZqbku62iWBwsXEaPSwgI8O4KW', NULL, 'JUNELLE AMANCE, MARIZEL SABUSAB, MICHAEL SATINITIGAN, RHODA LABASAN', 'coach', '2026-03-18 02:38:16', 'VOLLEYBALL', 'JJ44a9-rn38CG-AfKv2N-LdSJp7'),
+(117, 'other_coach', '$2y$10$0lWcqu4HQq6S0GRWYj.AXOYaCo/65x.Nu.5M4IGn3533010vZQPQi', NULL, '', 'coach', '2026-03-18 02:38:16', 'OTHER', 'PK5pV3-hAYKaW-aTKJ78-4RUaTy');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_action_log`
+--
+
+CREATE TABLE `admin_action_log` (
+  `id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `admin_username` varchar(50) DEFAULT NULL,
+  `action_type` enum('create','update','delete','export','login','logout','other') NOT NULL,
+  `table_name` varchar(50) DEFAULT NULL,
+  `record_id` int(11) DEFAULT NULL,
+  `description` text NOT NULL,
+  `old_values` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`old_values`)),
+  `new_values` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`new_values`)),
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Audit trail for all admin actions';
+
+--
+-- Dumping data for table `admin_action_log`
+--
+
+INSERT INTO `admin_action_log` (`id`, `admin_id`, `admin_username`, `action_type`, `table_name`, `record_id`, `description`, `old_values`, `new_values`, `ip_address`, `user_agent`, `created_at`) VALUES
+(1, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:37:42'),
+(2, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:40:53'),
+(3, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:41:19'),
+(4, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:42:46'),
+(5, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:53:47'),
+(6, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:55:55'),
+(7, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 01:58:51'),
+(8, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 02:01:26'),
+(9, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 02:19:30'),
+(10, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 02:35:15'),
+(11, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-09 07:59:02'),
+(12, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-18 01:17:56'),
+(13, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-18 01:20:06'),
+(14, 2, 'admin', 'login', NULL, NULL, 'User logged in', NULL, NULL, NULL, NULL, '2026-03-18 01:39:13');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `admin_activity_summary`
+-- (See below for the actual view)
+--
+CREATE TABLE `admin_activity_summary` (
+`admin_username` varchar(50)
+,`action_type` enum('create','update','delete','export','login','logout','other')
+,`action_count` bigint(21)
+,`last_action` timestamp
+,`action_date` date
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance`
+--
+
+CREATE TABLE `attendance` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `time_in` datetime NOT NULL,
+  `time_out` datetime DEFAULT NULL,
+  `status` enum('onsite','offsite') DEFAULT 'onsite',
+  `last_checkpoint` varchar(50) DEFAULT 'gate',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`id`, `student_id`, `date`, `time_in`, `time_out`, `status`, `last_checkpoint`, `created_at`) VALUES
+(32, 505, '2026-03-06', '2026-03-06 16:43:28', '2026-03-06 16:43:52', 'offsite', 'gate', '2026-03-06 08:43:28'),
+(33, 506, '2026-03-06', '2026-03-06 16:43:37', NULL, 'onsite', 'gate', '2026-03-06 08:43:37'),
+(34, 505, '2026-03-06', '2026-03-06 16:44:54', '2026-03-06 16:45:40', 'offsite', 'gate', '2026-03-06 08:44:54'),
+(35, 505, '2026-03-09', '2026-03-09 08:33:05', '2026-03-09 08:35:03', 'offsite', 'gate', '2026-03-09 00:33:05'),
+(36, 505, '2026-03-09', '2026-03-09 08:56:25', '2026-03-09 08:56:39', 'offsite', 'gate', '2026-03-09 00:56:25'),
+(37, 505, '2026-03-09', '2026-03-09 09:02:26', '2026-03-09 09:02:34', 'offsite', 'gate', '2026-03-09 01:02:26'),
+(38, 505, '2026-03-09', '2026-03-09 10:21:07', '2026-03-09 10:21:36', 'onsite', 'gate', '2026-03-09 02:21:07'),
+(39, 505, '2026-03-09', '2026-03-09 10:22:58', '2026-03-09 10:23:14', 'onsite', 'gate', '2026-03-09 02:22:58'),
+(40, 505, '2026-03-09', '2026-03-09 10:24:30', '2026-03-09 10:24:33', 'onsite', 'gate', '2026-03-09 02:24:30'),
+(41, 505, '2026-03-09', '2026-03-09 10:26:35', '2026-03-09 10:26:49', 'onsite', 'gate', '2026-03-09 02:26:35'),
+(42, 505, '2026-03-18', '2026-03-18 08:18:02', '2026-03-18 08:18:09', 'offsite', 'gate', '2026-03-18 00:18:02'),
+(43, 508, '2026-03-18', '2026-03-18 10:43:26', NULL, 'offsite', 'gate', '2026-03-18 02:43:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance_audit_log`
+--
+
+CREATE TABLE `attendance_audit_log` (
+  `id` int(11) NOT NULL,
+  `attendance_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `action` enum('time_in','time_out') NOT NULL,
+  `scanned_by` varchar(50) DEFAULT 'self' COMMENT 'self or coach_username',
+  `checkpoint` varchar(50) DEFAULT 'gate' COMMENT 'gate, event_venue, warm_up_area, medical_tent, staging_area, other',
+  `scan_time` datetime NOT NULL,
+  `notes` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Audit trail for attendance scans';
+
+--
+-- Dumping data for table `attendance_audit_log`
+--
+
+INSERT INTO `attendance_audit_log` (`id`, `attendance_id`, `student_id`, `action`, `scanned_by`, `checkpoint`, `scan_time`, `notes`, `created_at`) VALUES
+(2, 38, 505, 'time_in', 'coach_admin', 'gate', '2026-03-09 03:21:45', 'Status changed from offsite to onsite', '2026-03-09 02:21:45'),
+(3, 39, 505, 'time_in', 'coach_admin', 'gate', '2026-03-09 03:23:36', 'Status changed from offsite to onsite', '2026-03-09 02:23:36'),
+(4, 40, 505, 'time_in', 'coach_admin', 'gate', '2026-03-09 03:24:40', 'Status changed from offsite to onsite', '2026-03-09 02:24:40'),
+(5, 41, 505, 'time_in', 'coach_admin', 'gate', '2026-03-09 03:35:32', 'Status changed from offsite to onsite', '2026-03-09 02:35:32');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `coach_scan_activity`
+-- (See below for the actual view)
+--
+CREATE TABLE `coach_scan_activity` (
+`coach_id` varchar(50)
+,`scan_date` date
+,`athletes_scanned` bigint(21)
+,`total_scans` bigint(21)
+,`first_scan` datetime
+,`last_scan` datetime
+,`athletes_list` mediumtext
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qr_compliance_remarks`
+--
+
+CREATE TABLE `qr_compliance_remarks` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `remark` text NOT NULL COMMENT 'Reason for non-compliance',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `recent_admin_actions`
+-- (See below for the actual view)
+--
+CREATE TABLE `recent_admin_actions` (
+`id` int(11)
+,`admin_username` varchar(50)
+,`action_type` enum('create','update','delete','export','login','logout','other')
+,`table_name` varchar(50)
+,`record_id` int(11)
+,`description` text
+,`ip_address` varchar(45)
+,`created_at` timestamp
+,`formatted_time` varchar(19)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
+  `participantID` varchar(12) NOT NULL COMMENT 'Participant ID for QR generation',
+  `fullname` varchar(100) NOT NULL COMMENT 'Full name of participant',
+  `division` varchar(100) NOT NULL COMMENT 'Division (Carcar City, City of Naga, etc.)',
+  `school` varchar(100) DEFAULT NULL COMMENT 'School name (optional, to be filled later)',
+  `event` varchar(100) DEFAULT NULL COMMENT 'Sport/Event (for athletes only)',
+  `participant_type` enum('Athlete','Coach','Assistant Coach','Chaperone','Official','Management') DEFAULT 'Athlete' COMMENT 'Type of participant',
+  `profile_picture` varchar(255) DEFAULT NULL COMMENT 'Path to profile picture',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `participantID`, `fullname`, `division`, `school`, `event`, `participant_type`, `profile_picture`, `created_at`) VALUES
+(1, '119158210067', 'CALEB GREY EJADA', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(2, '119158200022', 'BRENT JOSEPH MULLET', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(3, '119158210243', 'CLINT JOSEPH  MULLET', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(4, '119157210019', 'Kate Louren  Balosada', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(5, '119157220003', 'Myrna  Quijano', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(6, '119157220002', 'Rowena  Quijano', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(7, '119169130176', 'JESSIE BOY CANDADO', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(8, '123456789101', 'JONATHAN MARCOS', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(9, '119622160010', 'JEFERSON MARILAO', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(10, '119155140023', 'ARCHIEVAL   SARADOR', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(11, '119169130178', 'JAMES MICHAEL TAPERLA', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(12, '119166150026', 'DYNA FE GELLEGAN', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(13, '119175150001', 'LIMARYANN GEMOTA', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(14, '119175140058', 'DIANNE HENIALES', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(15, '119175140057', 'MHONA MAY MANGYAO', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(16, '119157170009', 'CATALINA HERNAEZ', 'CARCAR CITY', NULL, 'ARNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(17, '119173190074', 'KYLE ADAM ALDUESA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(18, '119158190041', 'THYRON JAMES ARAS', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(19, '119158190065', 'CHARLES RAVEN BARAN', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(20, '404323190023', 'SHEM NOAH BEROL', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(21, '447089190013', 'HAROLD LABRA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(22, '119168190100', 'JOHN DAVE LASPOÑA', 'CARCAR CITY', '', 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(23, '119184190093', 'KOBE DERK LUARDO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(24, '119168190012', 'EARL MANCERA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(25, '119168190058', 'JERWIN RAMOS', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(26, '119184200248', 'PHILIP ANDREI REGNER', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(27, '119173190018', 'CLINT ANDREW SAMSON', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(28, '119168200113', 'CLINTON JOHN TANUDTANUD', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(29, '119168180095', 'SAM ALCOVER', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(30, '119179190063', 'MEKAILA BARAZONA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(31, '119168190120', 'VENICE BONTILAO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(32, '119172190019', 'DIANE MARIE CANABE', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(33, '119168190068', 'SOFIA KATE GABUTAN', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(34, '119158210100', 'QUEEN ELAIZAH GANTUANGCO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(35, '119158190142', 'AESHA TRIXIE LAPIÑA', 'CARCAR CITY', '', 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(36, '119165200049', 'TRISHA MAE MONTES', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(37, '119154180043', 'ALEAH NIEVES', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(38, '119165190026', 'ROSE ANN PARDILLO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(39, '119882190152', 'YVONNE CLEA SAGARINO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(40, '119173190063', 'ILLAH CHE SANCHEZ', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(41, '119174140143', 'FRANKLAIN ABABA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(42, '119158160077', 'KYLLE ZIONNE ABARQUEZ', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(43, '119171130333', 'JAMES BRYLE ALEGADO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(44, '119168180018', 'JASHER ANUADA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(45, '119168140095', 'JULIAN NOLI LANGUIDO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(46, '119170150084', 'DIEVEN LAPASARAN', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(47, '119165140020', 'CHRISTOPHER MADAYA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(48, '119168170034', 'DENBERT SHUNKZ MARSADO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(49, '119158160080', 'MARVIN PANUCAT', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(50, '119168140192', 'URIEL GABRIEL SABELLON', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(51, '119168130073', 'NIÑO REY SATUITA', 'CARCAR CITY', '', 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(52, '119168140195', 'CLARENCE KENT  TRAYA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(53, '119168140214', 'JAMES KYLE  VILLEGAS', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(54, '119168150037', 'ALANA SETH ALEGARBES', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(55, '119158170258', 'ZIAH ARAS', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(56, '119179140067', 'AZALEAH  KRISTINE  AGUILO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(57, '119169130189', 'MARIA LOURDES ENOJADA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(58, '119168180051', 'KATE COLLAINE ESPINOSA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(59, '119170150054', 'KATE JAHNEENE GANTUANGCO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(60, '119182150027', 'CRISTIE JANE GENGONE', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(61, '119169160055', 'DANICA LABASTIDA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(62, '119168180139', 'JAMAIKA  MANCERA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(63, '119181140209', 'SAMANTHA POWAO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(64, '119168180047', 'LINDSAY  URGADA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(65, '119158200131', 'JANE CALIX LAURENTE', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(66, '447089190009', 'GERIC PAUL MARATA', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(67, '119931190055', 'ELIJAH  OBISO', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(68, '119158190107', 'NIÑA NICOLE LAURON', 'CARCAR CITY', '', 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(69, '447020180038', 'KATHERINE MONDEJAR', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(70, '119176190005', 'ALEXA JANELLE ARCILLA', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(71, '119176190011', 'ROSELYN  PIAÑAR', 'CARCAR CITY', '', 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(72, '119179140053', 'ARJUN ALEGARBES', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(73, '119184150081', 'KERWIN UNDRIE BARCENAS', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(74, '119184140190', 'RHYN BARITUA', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(75, '118916130035', 'GABRIEL ETHAN CAPOYAN', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(76, '447020150088', 'DAXELLE SHAYNE DACORON', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(77, '119158170225', 'KHATE LEAH MIMIS', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(78, '119159180085', 'RYZZA EDCHEL OCOY', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(79, '404574170023', 'AUBREY SUMABONG', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(80, '119161190116', 'CLOYD CHINN ALISON', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(81, '119158190001', 'VINCE EROS APOSTOL', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(82, '119156190037', 'MARK VINCENT ATELLO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(83, '119184190086', 'NAIJEL DELICA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(84, '119156190081', 'MARK ADRIAN DIONIO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(85, '119156190036', 'PRINCE JEM DUTERTE', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(86, '119156200053', 'GAVEN MATTHEW GAVIOLA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(87, '119156200085', 'LIAM JEE GENOBIA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(88, '119156190085', 'SPIKE MONTEBON', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(89, '119156190011', 'LUKE ANDERSON PILLERIIN', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(90, '119156220109', 'ZYMON KEN PILLERIIN', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(91, '119184180037', 'AR SATERA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(92, '119158140306', 'VINCENT  ALBURO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(93, '119184130008', 'PHIL JOHN ALCAREZ', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(94, '125939130145', 'JIMWEL ALENTIOJO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(95, '119184140176', 'EDMART JHON ALESNA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(96, '119156140047', 'KHENT LORENZ BACLAAN', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(97, '119098130074', 'BRIX BRYAN BORBON', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(98, '119182130004', 'LANCH ANTHONY DAYUTA', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(99, '119166130024', 'MARK DENEIL LAORDEN', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(100, '447020150080', 'VAL FEBE NOVEL', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(101, '119179130095', 'WILBORN REPOMPO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(102, '119184140125', 'DEE ANDRE RUIZ', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(103, '119180130101', 'PARAMJIT SINGH', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(104, '119168140062', 'MARSON SOLON', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(105, '119161140198', 'JC ISIDRID SUSE', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(106, '119158130385', 'ARVIN ZOZOBRADO', 'CARCAR CITY', NULL, 'BASKETBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(107, '119278130014', 'RICHMOND CAMINO', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(108, '119181140191', 'CYRIL JAY DIACAMUS', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(109, '119158140403', 'JOUNIN SPHERE GO', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(110, '119181140110', 'CLYDE RABOR', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(111, '119181130044', 'JAMELA CAVAN', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(112, '119171180191', 'ALEXSA FAITH DAYUJA', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(113, '119181160122', 'SASHA DELOS REYES', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(114, '119171160057', 'ZENIKYEA MADAYA', 'CARCAR CITY', NULL, 'BASKETBALL 3X3', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(115, '119161150054', 'NASH LIMBAGA', 'CARCAR CITY', NULL, 'BILLIARDS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(116, '119159150071', 'SHAN PAUL NADELA', 'CARCAR CITY', NULL, 'BILLIARDS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(117, '119170150105', 'JAMAICA JOY  ABAQUITA', 'CARCAR CITY', NULL, 'BILLIARDS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(118, '119179140104', 'MIELYKA BACON', 'CARCAR CITY', NULL, 'BILLIARDS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(119, '119180150049', 'CYD JHAMEL ARAS', 'CARCAR CITY', NULL, 'BOXING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(120, '119181150134', 'REIGN JOHN ABELLA', 'CARCAR CITY', NULL, 'BOXING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(121, '119179190047', 'MANRIC BUSTAMANTE', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(122, '119159210066', 'RAINIER SKY  SASUTIL', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(123, '119181200095', 'ASHTINA LOURDES GENON', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(124, '447038190035', 'SOFIA MARY ABECIA', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(125, '119159140135', 'JOEL JR BANGALAN', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(126, '119158130438', 'NAF NERO PANUCAT', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(127, '119156140041', 'THERENCE JOHN ROA', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(128, '120001150070', 'GLAIZA JANE BASUBAS', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(129, '119158160090', 'PRECIOUS LORRAINE ENAD', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(130, '119173160079', 'PRINCESS KATE SOLON', 'CARCAR CITY', NULL, 'CHESS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(131, '447038190015', 'AYEISHA GABRIELLE ALICABA', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(132, '119184200008', 'IZEN MIKAEL ALICABA', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(133, '119158220143', 'KIARA KATE BASANAL', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(134, '119161210019', 'SHAWN ANDREI CABALLERO', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(135, '119720150012', 'KIAN JED BARDINAS', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(136, '119720150005', 'MELCHIE GWYNETH ESCANILLA', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(137, '119720130016', 'LEMUEL JAY NAVARRO', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(138, '119159160118', 'STEIFFANY NICHOLE SATUMCACAL', 'CARCAR CITY', NULL, 'DANCESPORTS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(139, '119155200001', 'CHARLES WINSTON ALFECHE', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(140, '119158190037', 'JHON ALEX ALISON', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(141, '119158200186', 'IZAAC DHALE AYUDA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(142, '119158200125', 'KITH ZEUS BIGNO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(143, '119158200251', 'ROBERT ISIAH CABRERA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(144, '119168200015', 'ZEAN DRAKE DAQUIL', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(145, '119632190006', 'LOUISE DELA RIARTE', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(146, '119158200183', 'KHYLE LAWRENCE EMPINADO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(147, '119158200036', 'AIKEY MIGUEL GABRILLO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(148, '119158190060', 'XIAN ZAKARY JAVIER', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(149, '408332210021', 'ZAYN ADAM LANGGAMON', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(150, '119158190124', 'ROFAEL JOSH MONTEMOR', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(151, '119881180068', 'LIAM YOSEF NABUA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(152, '119158180154', 'KIRBY JHON PELLERIN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(153, '119158210199', 'CARL NGACHO RAVANES', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(154, '120013190175', 'AARON JAMES ROSELL', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(155, '119184210219', 'KEON KAISER RUSIANA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(156, '119158190078', 'LIAM LEE SOLON', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(157, '120753200066', 'TIMOTHY GRAE TAPING', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(158, '404638190008', 'TZURIEL GRAE TAPING', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(159, '119158140307', 'JHON CARLO ALCOS', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(160, '119160140001', 'NIÑO BRYLE  ARDIZA', 'CARCAR CITY', '', 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(161, '119184170048', 'VAN TROY BARAWIDAN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(162, '119184140284', 'JORIEL BASILLOTE', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(163, '119158150044', 'SEAN ARON CABISO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(164, '444509150058', 'OSVIR CHRISTIAN JOSEPH DEADA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(165, '447089150163', 'JOHN TIMOTHY ELLOREN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(166, '404379150037', 'ANDREW ANTONIO GILO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(167, '404321150004', 'EDWARD JOSEPHOUS LAGUSAN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(168, '119161150012', 'DEX CEILO NACUA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(169, '119181160043', 'CABALLES  NECANDRO', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(170, '119184130220', 'VINCE EDWARD PAHANONOT', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(171, '119158130109', 'RONAN KYLE  PANANGANAN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(172, '404323150354', 'MACK ROBY PANIDAR', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(173, '119158150228', 'KHIAN CARL RACOMA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(174, '119168170100', 'ZEPHAN APOLLO TANUDTANUD', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(175, '119161150014', 'PETER   TORREON', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(176, '119158170139', 'JAYFORD KEN VILLANUEVA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(177, '404321150007', 'DEXTER MAR GABRIELLE  WAMAR', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(178, '447089190032', 'JAN DITSY ABABON', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(179, '119158190150', 'SILANA KAITLYN JOY ARSENAULT', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(180, '119168200099', 'MARY CATHALEA ATILLO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(181, '119158210307', 'ZARI KRIS BIGNO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(182, '119158190140', 'JULIA ANNE  DEVOSORA', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(183, '119158220038', 'JASMINE DEVOSORA', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(184, '128081190422', 'ZOE DANICA EBALLE', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(185, '119158200165', 'YESHA MONIQUE PACENIO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(186, '119158190218', 'JASMIEN KEISHA VILLANUEVA', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(187, '119168200149', 'KATE AVRY VISITACION', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(188, '119181130033', 'MYKA JAME ABASOLO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(189, '119181170181', 'NIÑA ANDREA  ALISER', 'CARCAR CITY', '', 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(190, '119171150230', 'JACKIELYN CALATERO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(191, '119171160090', 'ROSELLE JENN CALATERO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(192, '119171160100', 'FEL JANE CALDERA', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(193, '119098160022', 'MARTHA LAKAMBINI DAQUIL', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(194, '119181140322', 'MARIA ELEN  DAYANAN', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(195, '119179140088', 'MARY CLAIRE  ELECHICON', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(196, '119181140210', 'MAE KAYLA FLORENO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(197, '119173130059', 'GRACE DESIREE OBISO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(198, '119171150158', 'CHASTINE PADIN', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(199, '119181150177', 'JONISIE KHA POWAO', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(200, '119173140127', 'ALIAH SAFFI VILLAROSA', 'CARCAR CITY', NULL, 'FUTSAL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(201, '119173170012', 'GEM  ALEGRADO', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(202, '119184170070', 'FRITZ IZON DELA CERNA', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(203, '119181170074', 'GABRIEL DESCUATAN', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(204, '119181160155', 'RYLE TEDSKIE AMANCE', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(205, '119159150120', 'JHON ERICK ABATAYO', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(206, '119154170028', 'FATIMA SARAUM', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(207, '119176160008', 'LOUISE TRISHIA ADLAWAN', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(208, '119169170043', 'JUSTINE PATILUNA', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(209, '119184150136', 'EYISHA GLAZE DELA CERNA', 'CARCAR CITY', NULL, 'PENCAK SILAT', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(210, '119175190004', 'JOHN ROBERT GEMUTA', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(211, '119175190007', 'JHON REED LASADO', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(212, '119175190010', 'JAKE TANOCO', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(213, '119175190012', 'HONSLEY JAY VERACES', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(214, '119156130161', 'SKYLYR ENCABO', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(215, '119156170081', 'CATHERINE JOY PANTILGAN', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(216, '119156160041', 'HANNIE FE TANTOG', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(217, '119785150198', 'ASHLEY NICOLE VERGARA', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(218, '119156150006', 'JOHN VINCENT  CASTAÑARES', 'CARCAR CITY', '', 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(219, '119156140116', 'KIAN DECHOSA', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(220, '119175170014', 'DARYL DAVE GEMUTA', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(221, '119721150009', 'SHERWIN MANGYAO', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(222, '119180140032', 'JASON MONTAÑO', 'CARCAR CITY', '', 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(223, '119180140033', 'JIMBOY MONTAÑO', 'CARCAR CITY', '', 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(224, '119182140016', 'JEL MAR NAVARES', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(225, '119175170015', 'JOY PAUL NAVARES', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(226, '119175140061', 'RENIEL JAKE SUMADYA', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(227, '119175170008', 'ZANJIE VILLASENCIO', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(228, '119997140054', 'CHARLES IVAN VILLAVER', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(229, '119163180010', 'JIMSON VILLAVER', 'CARCAR CITY', NULL, 'SEPAK TAKRAW', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(230, '119181210086', 'JACOB ESTROBO', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(231, '447020180031', 'RODZ STEPHEN ESTROBO', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(232, '119159190081', 'XANDER LANZE PANTILGAN', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(233, '119181200102', 'BERNICE BACLAY', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(234, '119181200187', 'DION EEINA MEJINO', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(235, '119184210184', 'MIKAELA JOY FLORIDO', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(236, '119997180012', 'CAMILLUS JOVEN  SUMARINAS', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(237, '127940160605', 'CEDRICK JOHN JOSEPH SUMARINAS', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(238, '447595150029', 'FOURD GODWIN VENERACION', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(239, '119216170011', 'PRINCEPE ZANIELLE', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(240, '119181190088', 'JOHANN AVERY ABATAYO', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(241, '119181190105', 'KIERJI RYAN ESTRADA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(242, '119179190078', 'JORIE ILIGAN', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(243, '119184190072', 'JHON DEAN ADAM NACARIO', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(244, '119163190017', 'AIGLEN KAYE CAMPAÑA', 'CARCAR CITY', '', 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(245, '119181190041', 'KHYRA LYNNE SITOY', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(246, '119159190146', 'LEE SHEYRIKHA MAY NADELA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(247, '119163190027', 'AMBER CLAIRE ZAPANTA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(248, '119181170161', 'KIERT RYAN ESTRADA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(249, '119159130150', 'CHRISTIANE RAVE MANCAO', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(250, '119184180082', 'KHURT BENCH NACARIO', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(251, '119159130215', 'KENT DAVE SAURA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(252, '119163180018', 'JAY ANN LANTAPE', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(253, '119163180019', 'JAY HAN LANTAPE', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(254, '119184180148', 'HANNA TANGARO', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(255, '407984190009', 'JARLAN ACE NUÑEZ', 'CARCAR CITY', '', 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(256, '404324190043', 'SENDME AN ANGEL  DAPO', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(257, '404321190014', 'KEENAN THERESE GALEOS', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(258, '119181130153', 'LEX HENRICH ZHACK ARSENAL', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(259, '119159150130', 'KARL DAYANAN', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(260, '119177150004', 'ROMER DAYONDON', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(261, '447038150029', 'KIRK JOSEPH DESPI', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(262, '404324150883', 'SAMUEL CHRISTIAN MALONEY', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(263, '119164130015', 'DARYL OACAN', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(264, '119169150035', 'DEAN MARIE PANSIT', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(265, '119597140033', 'YUANZANE TOMAODOS', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(266, '119180150074', 'MARIE CLAIRE CANAPE', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(267, '447509160054', 'EBONY JOHN FEROLINO', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(268, '119158140303', 'JENIN LAPIÑA', 'CARCAR CITY', '', 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(269, '450501450011', 'SAMANTHA BLANCE MANAYON', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(270, '119170130073', 'CARLA QUINDALA', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(271, '119158210297', 'MIKE ANGELO BAGUIO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(272, '119184210133', 'HERBEI HISOLA', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(273, '119168200024', 'VINCENT BEN JULIO ONG', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(274, '447038200009', 'ELIJAH PANILAGAO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(275, '119158200109', 'MITCHIE NICOLE ALICANTE', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(276, '119158220253', 'ROSE WENNET ALVARICO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(277, '404323190036', 'MARY VELA OYANGOREN', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(278, '119158190114', 'CHANDREA MARIE RIVERA', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(279, '447038180005', 'ZACHARY RUSSELL DEL ROSARIO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(280, '119159140090', 'MC DAVID GEMPESAO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(281, '119158140188', 'ERIK MARCO RIVERA', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(282, '119158170124', 'PRINCE JULIE  LAPINIG', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(283, '119184180043', 'KATE NICHOLE APURA', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(284, '119073150008', 'REIANE MYNN CAUSIN', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(285, '119158160142', 'KHATE CINDY COMETA', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(286, '119184140200', 'CAITLYN MEAGHAN LARGO', 'CARCAR CITY', NULL, 'TENNIS', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(287, '256001190032', 'JOHN CLIVE ALCOVER', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(288, '119173220035', 'JESSIE JAY ALICANTE', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(289, '119173190002', 'ZHEUS VINCENT ALISON', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(290, '119173200039', 'ZHIAN ALISON', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(291, '119173190033', 'PHIL JHON AQUINO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(292, '119173200042', 'VINCE KYRE BONGBONG', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(293, '119161190131', 'VEE JAY CABATOAN', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(294, '119173220060', 'JHON MICHAEL JR. CARILLO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(295, '119173200079', 'JERWIN HELUDO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(296, '119161200073', 'KENTH JHUDE LABRA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(297, '119173200045', 'ROWAN OBISO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(298, '119173200037', 'VHEANZ JABIEL QUINDALA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(299, '119173190017', 'JHON NICOLAS RONOLO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(300, '119181200072', 'JAMES ANDREI PERPETUA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(301, '119161190061', 'ZOEH ARABELLA BAGUHIN', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(302, '119170200017', 'ALYSSA MARIE CABAÑETE', 'CARCAR CITY', '', 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(303, '119170180032', 'CHRISTINE ROSE CALSONA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(304, '119171200179', 'CAMILLE CARETERO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(305, '119170200013', 'SHANTHAL MAE CASTAÑARES', 'CARCAR CITY', '', 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(306, '119170190074', 'MARGA JULIENNE CUIZON', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(307, '447089190004', 'BLAIR KEITH DONAL', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(308, '119161190066', 'HYACINTH ENCABO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(309, '119170190088', 'MAYBELLE ENJAMBRE', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(310, '119170190075', 'YONNA XHEN GANTUANGCO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(311, '119170190076', 'MARSHA ALEXA GARCES', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(312, '447089190030', 'KEISHA NICHOLE ORGE', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(313, '119170190011', 'RAHCEL QUIJANO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(314, '119170190086', 'FRANZE TAMESIS', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(315, '404324150996', 'ALTHON BRX ALCAREZ', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(316, '119181150045', 'CHRIS EDWARD  CADENAS', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(317, '119635140037', 'CLINT JOHN CANTINA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(318, '119171140010', 'JESFFER DELA CONCEPCION', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(319, '119158140224', 'JOHN NIÑO DIABELOS', 'CARCAR CITY', '', 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(320, '119181150079', 'ARDANE DUMBASE', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(321, '119180130048', 'VINCE KYLE MAITOM', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(322, '119156150051', 'JEE HO NEIZ', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(323, '119159130153', 'JAMES BRANDON PADIN', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(324, '119181160055', 'MARCKY JUSTIN RACAZA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(325, '119181160124', 'NATHAN TIM RUPITA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(326, '119184130227', 'DAVID ZANE SATUITA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(327, '119572130119', 'HERCULES KYLE VILLAFLORES', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(328, '494064150086', 'CHAELVIN KLENT WONG', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(329, '119159150042', 'APPLEMAE BACARO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(330, '119156170119', 'DEE GLACIER BEJOC', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(331, '119156140161', 'TRISHA ROSE CONLEY', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(332, '164009160019', 'JEFFILYN DELACRUZ', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(333, '119159120024', 'ISABELLE FUNTANAR', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(334, '119156140145', 'JOHN NES LARROBIS', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(335, '119159140157', 'FEVY JEAN PANUGALING', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(336, '119159150090', 'IYA MARAIJAH RODRIGUEZ', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(337, '119156140177', 'EFHE DEANNE SATORRE', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(338, '119173170069', 'STEPHANIE KATE BOGNOT', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(339, '119173140115', 'KELLY AUDRIANA BONGHANOY', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(340, '119161140006', 'MIKAH RUTH GLORIA', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(341, '119913140166', 'KLENT CYRELLE SATUITA', 'CARCAR CITY', NULL, 'WUSHU', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(342, '119155140053', 'JAMES TUMALA', 'CARCAR CITY', NULL, 'WUSHU', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(343, '119181180004', 'NIKKO PUZON', 'CARCAR CITY', NULL, 'ATHLETICS 16 TO 25 YEARS OLD BOYS-ID', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(344, '119181220054', 'JHEEYPHEE ABELLA', 'CARCAR CITY', '', 'ATHLETICS - 15 BELOW - BOYS - ID', 'Athlete', NULL, '2026-03-02 19:42:08'),
+(345, '119331300101', 'NIÑO KHENT PANTUJAN', 'CARCAR CITY', '', 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(346, '119168300961', 'CLINT JARED TANUDTANUD', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(347, '119171140991', 'LAIZA DEGUIA', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(348, '118263150079', 'ANN MONIQUE  TRIBUNALO', 'CARCAR CITY', NULL, 'ATHLETICS', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(349, '447020200051', 'MATT KENDREI SATO', 'CARCAR CITY', NULL, 'BADMINTON', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(350, '119989150041', 'JOHANN MARIE  JANEA', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(351, '119161150011', 'JHAYRENS UBANAN', 'CARCAR CITY', NULL, 'FOOTBALL', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(352, '447020170041', 'CANABRE ZANIELLE', 'CARCAR CITY', NULL, 'SWIMMING', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(353, '119163180021', 'PRECIOUS KATE NALAZA', 'CARCAR CITY', NULL, 'TABLE TENNIS', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(354, '119158150091', 'LOISE MARTHY LAURON', 'CARCAR CITY', NULL, 'TAEKWONDO', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(355, '119181890036', 'VERONICA RAMIR', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(356, '119156140661', 'TRIXIE JANEL BUSTILLO', 'CARCAR CITY', NULL, 'VOLLEYBALL', 'Athlete', NULL, '2026-03-02 19:50:24'),
+(433, '202600001001', 'KIMBERLY FLORES', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'ARNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(434, '202600001002', 'JANE  BALANSAG', 'CARCAR CITY', 'CARAATAN ELEMENTARY SCHOOL', 'ARNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(435, '202600001003', 'KARL NIKKO  RESURRECCION', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'ARNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(436, '202600001004', 'MARY ANN GEMOTA', 'CARCAR CITY', 'KALANGYAWON NATIONL HIGH SCHOOL', 'ARNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(437, '202600001005', 'ROSELYN YORONG', 'CARCAR CITY', 'TUYOM ELEMENTARY SCHOOL', 'ATHLETICS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(438, '202600001006', 'JULIUS CORTES', 'CARCAR CITY', 'UPLAND ELEMENTARY SCHOOL', 'ATHLETICS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(439, '202600001007', 'ELANNIENE PUERTO', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY', 'ATHLETICS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(440, '202600001008', 'MELINDA UBOD', 'CARCAR CITY', 'TUYOM  ELEMENTARY SCHOOL', 'ATHLETICS', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(441, '202600001009', 'ANALYN MINOR', 'CARCAR CITY', 'TUYOM SENIOR HIGH SCHOOL', 'ATHLETICS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(442, '202600001010', 'CHERYL RAMOS', 'CARCAR CITY', 'JUANA ENRIQUEZ MACALALAG NATIONAL HIGH SCHOOL', 'ATHLETICS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(443, '202600001011', 'MARGARITA SETON', 'CARCAR CITY', 'VALENCIA NATIONAL VOCATIOANL HIGH SCHOOL', 'ATHLETICS', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(444, '202600001012', 'VANGIE FERNANDEZ', 'CARCAR CITY', 'ST. TERESA\'S SCHOOL OF VALLADOLID, INC.', 'BADMINTON', 'Coach', NULL, '2026-03-06 07:37:21'),
+(445, '202600001013', 'METCHIE JANE BORJA', 'CARCAR CITY', 'KAMANGGAHAN ELEMENTARY SCHOOL', 'BADMINTON', 'Coach', NULL, '2026-03-06 07:37:21'),
+(446, '202600001014', 'MICHAELA MAREE SEBIAL', 'CARCAR CITY', 'CARCAR ACADEMY TECHNICAL SCHOOL INC.', 'BADMINTON', 'Coach', NULL, '2026-03-06 07:37:21'),
+(447, '202600001015', 'FREYA MAE FERNANDEZ', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'BADMINTON', 'Coach', NULL, '2026-03-06 07:37:21'),
+(448, '202600001016', 'ALVA PILLERIN', 'CARCAR CITY', 'CAN-ASUJAN ELEMENTARY SCHOOL', 'BASKETBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(449, '202600001017', 'MARINA PRIOLO', 'CARCAR CITY', 'CAN-ASUJAN ELEMENTARY SCHOOL', 'BASKETBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(450, '202600001018', 'AIA OBISO', 'CARCAR CITY', 'CARCAR ACADEMY TECHNICAL SCHOOL INC.', 'BASKETBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(451, '202600001019', 'JOHN PAULIE TUMULAK', 'CARCAR CITY', 'CARCAR ACADEMY TECHNICAL SCHOOL INC.', 'BASKETBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(452, '202600001020', 'GIDEON KEM UBALDE', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'BASKETBALL 3X3', 'Coach', NULL, '2026-03-06 07:37:21'),
+(453, '202600001021', 'DAISY OAPER', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'BASKETBALL 3X3', 'Coach', NULL, '2026-03-06 07:37:21'),
+(454, '202600001022', 'LOUELLA EMBUSCADO', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'BOXING', 'Coach', NULL, '2026-03-06 07:37:21'),
+(455, '202600001023', 'AISA NIÑA  DAMAYO', 'CARCAR CITY', 'PERRELOS NATIONAL HIGH SCHOOL', 'BILLIARDS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(456, '202600001024', 'RENABETH AREMON', 'CARCAR CITY', 'GELACIO C. BABAO SR. MNHS', 'BILLIARDS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(457, '202600001025', 'GRACE CAROL LEQUIN', 'CARCAR CITY', 'MAXIMINA V. BARANGAN ELEMENTARY SCHOOL', 'CHESS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(458, '202600001026', 'CHARITO SOBREVILLA', 'CARCAR CITY', 'OCAÑA CENTRAL  ELEMENTARY', 'CHESS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(459, '202600001027', 'LENI RAMA', 'CARCAR CITY', 'LIBURON NATIONAL HIGH SCHOOL', 'CHESS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(460, '202600001028', 'ADEMA RESURRECION', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'CHESS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(461, '202600001029', 'ANGELO LLANOS', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'DANCESPORTS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(462, '202600001030', 'REGELA MAE FERNANDEZ', 'CARCAR CITY', 'CARCAR ACADEMY TECHNICAL SCHOOL INCORPORATED', 'DANCESPORTS', 'Chaperone', NULL, '2026-03-06 07:37:21'),
+(463, '202600001031', 'ANGELO LLANOS', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'DANCESPORTS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(464, '202600001032', 'SHARMENE GELAGA', 'CARCAR CITY', 'UPLAND ELEMENTARY SCHOOL', 'DANCESPORTS', 'Chaperone', NULL, '2026-03-06 07:37:21'),
+(465, '202600001033', 'JASON CARLO MONTESCLAROS', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'FOOTBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(466, '202600001034', 'GODWIN SECUSANA', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'FOOTBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(467, '202600001035', 'GEMARIE  ENTERO', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'FOOTBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(468, '202600001036', 'TESSA DAHL CAMPOS', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'FUTSAL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(469, '202600001037', 'DIANE SATUMCACAL', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'FUTSAL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(470, '202600001038', 'CARLOS JR. MONISIT', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'PENCAK SILAT', 'Coach', NULL, '2026-03-06 07:37:21'),
+(471, '202600001039', 'CARLOS JR. MONISIT', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'PENCAK SILAT', 'Coach', NULL, '2026-03-06 07:37:21'),
+(472, '202600001040', 'MARY GRACE GALEOS', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'PENCAK SILAT', 'Chaperone', NULL, '2026-03-06 07:37:21'),
+(473, '202600001041', 'JESSA ROSALIE ARUTA', 'CARCAR CITY', 'KALANGYAWON ELEMENTARY SCHOOL', 'SEPAK TAKRAW', 'Coach', NULL, '2026-03-06 07:37:21'),
+(474, '202600001042', 'ISARAEL CANQUE', 'CARCAR CITY', 'KALANGYAWON NATIONAL HIGH SCHOOL', 'SEPAK TAKRAW', 'Coach', NULL, '2026-03-06 07:37:21'),
+(475, '202600001043', 'JUNRY EÑEGO', 'CARCAR CITY', 'CAN-ASUJAN NATIONAL HIGH SCHOOL', 'SEPAK TAKRAW', 'Coach', NULL, '2026-03-06 07:37:21'),
+(476, '202600001044', 'AILEEN CIRUNAY', 'CARCAR CITY', 'CAN-ASUJAN NATIONAL HIGH SCHOOL', 'SEPAK TAKRAW', 'Chaperone', NULL, '2026-03-06 07:37:21'),
+(477, '202600001045', 'APRIL MARISE JIMENO', 'CARCAR CITY', 'OCAÑA CENTRAL ELEMENTARY SCHOOL', 'SWIMMING', 'Coach', NULL, '2026-03-06 07:37:21'),
+(478, '202600001046', 'MA. LOIDA ALCORDO', 'CARCAR CITY', 'UPLAND ELEMENTARY SCHOOL', 'SWIMMING', 'Coach', NULL, '2026-03-06 07:37:21'),
+(479, '202600001047', 'CLOUE FAYE TUMULAK', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'SWIMMING', 'Coach', NULL, '2026-03-06 07:37:21'),
+(480, '202600001048', 'LANNI  DORIA', 'CARCAR CITY', 'MOTHER MARY CHILDREN SCHOOL', 'SWIMMING', 'Coach', NULL, '2026-03-06 07:37:21'),
+(481, '202600001049', 'FELYN MAE BOISER', 'CARCAR CITY', 'OCAÑA CENTRAL ELEMENTARY SCHOOL', 'TABLE TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(482, '202600001050', 'RONALD CAMPUGAN', 'CARCAR CITY', 'SAAY ELEMENTRAY SCHOOL', 'TABLE TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(483, '202600001051', 'JOSIE LARGO', 'CARCAR CITY', 'OCAÑA CENTRAL ELEMENTARY SCHOOL', 'TABLE TENNIS', 'Chaperone', NULL, '2026-03-06 07:37:21'),
+(484, '202600001052', 'MARIA VICTORIA RACOMA', 'CARCAR CITY', 'LIBURON NATIONAL HIGH SCHOOL', 'TABLE TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(485, '202600001053', 'JENELYN ABAÑO', 'CARCAR CITY', 'LIBURON NATIONAL HIGH SCHOOL', 'TABLE TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(486, '202600001054', 'EDYZA FATIMA RENSULAT', 'CARCAR CITY', 'PERRELOS ELEMENTARY SCHOOL', 'TAEKWONDO', 'Coach', NULL, '2026-03-06 07:37:21'),
+(487, '202600001055', 'SHERYL BETONTA', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'TAEKWONDO', 'Coach', NULL, '2026-03-06 07:37:21'),
+(488, '202600001056', 'JEANLY PEARL LAWAS', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'TAEKWONDO', 'Coach', NULL, '2026-03-06 07:37:21'),
+(489, '202600001057', 'ORLENE  CANAPE', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'TAEKWONDO', 'Coach', NULL, '2026-03-06 07:37:21'),
+(490, '202600001058', 'KATRINA ORTEGA', 'CARCAR CITY', 'ROBERTO E. SATO MEMORIAL NHS', 'TAEKWONDO', 'Chaperone', NULL, '2026-03-06 07:37:21');
+INSERT INTO `students` (`id`, `participantID`, `fullname`, `division`, `school`, `event`, `participant_type`, `profile_picture`, `created_at`) VALUES
+(491, '202600001059', 'JENNIE YBAÑEZ', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(492, '202600001060', 'JENNIFER SAAVEDRA', 'CARCAR CITY', 'CARCAR CENTRAL ELEMENTARY SCHOOL', 'TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(493, '202600001061', 'JHUN MARK SASAN', 'CARCAR CITY', 'CARCAR ACADEMY TECHNICAL SCHOOL INC', 'TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(494, '202600001062', 'NIÑA CHRISTY LEDESMA', 'CARCAR CITY', 'CARCAR CENTRAL NATIONAL HIGH SCHOOL', 'TENNIS', 'Coach', NULL, '2026-03-06 07:37:21'),
+(495, '202600001063', 'RHODA LABASAN', 'CARCAR CITY', 'GUADALUPE ELEMENTARY SCHOOL', 'VOLLEYBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(496, '202600001064', 'MARNE FE ALEGADO', 'CARCAR CITY', 'GUADALUPE ELEMENTARY SCHOOL', 'VOLLEYBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(497, '202600001065', 'MARIZEL SABUSAB', 'CARCAR CITY', 'PERRELOS ELEMENTARY', 'VOLLEYBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(498, '202600001066', 'MA. SHEILA OAMILDA', 'CARCAR CITY', 'VALLADOLID ELEMENTARY', 'VOLLEYBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(499, '202600001067', 'JUNELLE AMANCE', 'CARCAR CITY', 'OCAÑA NATIONAL HIGH SCHOOL', 'VOLLEYBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(500, '202600001068', 'MICHAEL SATINITIGAN', 'CARCAR CITY', 'LIBURON NATIONAL HIGH SCHOOL', 'VOLLEYBALL', 'Coach', NULL, '2026-03-06 07:37:21'),
+(501, '202600001069', 'IVY JEANNE YASE', 'CARCAR CITY', 'LIBURON NATIONAL HIGH SCHOOL', 'VOLLEYBALL', 'Assistant Coach', NULL, '2026-03-06 07:37:21'),
+(502, '202600001070', 'ELVIN KLYNTH SERMON', 'CARCAR CITY', 'ROBERTO E. SATO MEMORIAL NATIONAL HIGH SCHOOL', 'WUSHU', 'Coach', NULL, '2026-03-06 07:37:21'),
+(503, '202600001071', 'MELYN ANTONI', 'CARCAR CITY', 'OCAÑA CENTRAL ELEMENTARY SCHOOL', 'ATHLETICS - 15 BELOW - BOYS - ID', 'Coach', NULL, '2026-03-06 07:37:21'),
+(504, '202600001072', 'JESSAH MAE GAÑOLON', 'CARCAR CITY', 'OCAÑA CENTRAL ELEMENTARY SCHOOL', 'ATHLETICS - 15 BELOW - BOYS - ID', 'Coach', NULL, '2026-03-06 07:37:21'),
+(505, '123123123123', 'Test_Athlete', 'CARCAR CITY', '', 'Athletics', 'Athlete', NULL, '2026-03-06 07:47:34'),
+(506, '321321321321', 'Test_Coach', 'CARCAR CITY', '', 'Athletics', 'Coach', NULL, '2026-03-06 07:47:57'),
+(507, '119159150121', 'LUCKY SHIEN POLOÑO', 'CARCAR CITY', 'VALENCIA NATIONAL VHS', 'PENCAK SILAT', 'Athlete', NULL, '2026-03-17 05:32:40'),
+(508, '119161190117', 'MICHAEL GARCES', 'CARCAR CITY', 'PERRELOS ELEMENTARY SCHOOL', 'BASKETBALL', 'Athlete', NULL, '2026-03-17 05:36:55');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `suspicious_scan_patterns`
+-- (See below for the actual view)
+--
+CREATE TABLE `suspicious_scan_patterns` (
+`participantID` varchar(12)
+,`fullname` varchar(100)
+,`participant_type` enum('Athlete','Coach','Assistant Coach','Chaperone','Official','Management')
+,`event` varchar(100)
+,`scan_date` date
+,`scan_count` bigint(21)
+,`scanned_by_list` mediumtext
+,`checkpoint_list` mediumtext
+,`first_scan` datetime
+,`last_scan` datetime
+,`time_span_minutes` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `admin_activity_summary`
+--
+DROP TABLE IF EXISTS `admin_activity_summary`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_activity_summary`  AS SELECT `admin_action_log`.`admin_username` AS `admin_username`, `admin_action_log`.`action_type` AS `action_type`, count(0) AS `action_count`, max(`admin_action_log`.`created_at`) AS `last_action`, cast(`admin_action_log`.`created_at` as date) AS `action_date` FROM `admin_action_log` GROUP BY `admin_action_log`.`admin_username`, `admin_action_log`.`action_type`, cast(`admin_action_log`.`created_at` as date) ORDER BY cast(`admin_action_log`.`created_at` as date) DESC, count(0) DESC ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `coach_scan_activity`
+--
+DROP TABLE IF EXISTS `coach_scan_activity`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coach_scan_activity`  AS SELECT `aal`.`scanned_by` AS `coach_id`, cast(`aal`.`scan_time` as date) AS `scan_date`, count(distinct `aal`.`student_id`) AS `athletes_scanned`, count(0) AS `total_scans`, min(`aal`.`scan_time`) AS `first_scan`, max(`aal`.`scan_time`) AS `last_scan`, group_concat(distinct `s`.`fullname` order by `aal`.`scan_time` ASC separator ', ') AS `athletes_list` FROM (`attendance_audit_log` `aal` join `students` `s` on(`aal`.`student_id` = `s`.`id`)) WHERE `aal`.`scanned_by` <> 'self' AND cast(`aal`.`scan_time` as date) = curdate() GROUP BY `aal`.`scanned_by`, cast(`aal`.`scan_time` as date) ORDER BY count(0) DESC ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `recent_admin_actions`
+--
+DROP TABLE IF EXISTS `recent_admin_actions`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `recent_admin_actions`  AS SELECT `aal`.`id` AS `id`, `aal`.`admin_username` AS `admin_username`, `aal`.`action_type` AS `action_type`, `aal`.`table_name` AS `table_name`, `aal`.`record_id` AS `record_id`, `aal`.`description` AS `description`, `aal`.`ip_address` AS `ip_address`, `aal`.`created_at` AS `created_at`, date_format(`aal`.`created_at`,'%Y-%m-%d %h:%i %p') AS `formatted_time` FROM `admin_action_log` AS `aal` ORDER BY `aal`.`created_at` DESC LIMIT 0, 100 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `suspicious_scan_patterns`
+--
+DROP TABLE IF EXISTS `suspicious_scan_patterns`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `suspicious_scan_patterns`  AS SELECT `s`.`participantID` AS `participantID`, `s`.`fullname` AS `fullname`, `s`.`participant_type` AS `participant_type`, `s`.`event` AS `event`, cast(`aal`.`scan_time` as date) AS `scan_date`, count(0) AS `scan_count`, group_concat(distinct `aal`.`scanned_by` order by `aal`.`scan_time` ASC separator ',') AS `scanned_by_list`, group_concat(distinct `aal`.`checkpoint` order by `aal`.`scan_time` ASC separator ',') AS `checkpoint_list`, min(`aal`.`scan_time`) AS `first_scan`, max(`aal`.`scan_time`) AS `last_scan`, timestampdiff(MINUTE,min(`aal`.`scan_time`),max(`aal`.`scan_time`)) AS `time_span_minutes` FROM (`attendance_audit_log` `aal` join `students` `s` on(`aal`.`student_id` = `s`.`id`)) WHERE cast(`aal`.`scan_time` as date) = curdate() GROUP BY `s`.`id`, cast(`aal`.`scan_time` as date) HAVING `scan_count` > 6 OR `scan_count` > 2 AND `time_span_minutes` < 5 OR `scanned_by_list` not like '%self%' ORDER BY count(0) DESC, timestampdiff(MINUTE,min(`aal`.`scan_time`),max(`aal`.`scan_time`)) ASC ;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `idx_username` (`username`),
+  ADD KEY `idx_role` (`role`),
+  ADD KEY `idx_sport_category` (`sport_category`);
+
+--
+-- Indexes for table `admin_action_log`
+--
+ALTER TABLE `admin_action_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_admin` (`admin_id`),
+  ADD KEY `idx_action_type` (`action_type`),
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_table_record` (`table_name`,`record_id`);
+
+--
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_student_date` (`student_id`,`date`),
+  ADD KEY `idx_created_at` (`created_at`),
+  ADD KEY `idx_status` (`status`);
+
+--
+-- Indexes for table `attendance_audit_log`
+--
+ALTER TABLE `attendance_audit_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_student_scan` (`student_id`,`scan_time`),
+  ADD KEY `idx_attendance` (`attendance_id`),
+  ADD KEY `idx_scanned_by` (`scanned_by`),
+  ADD KEY `idx_scan_time` (`scan_time`);
+
+--
+-- Indexes for table `qr_compliance_remarks`
+--
+ALTER TABLE `qr_compliance_remarks`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_student_date` (`student_id`,`date`),
+  ADD KEY `idx_date` (`date`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `participantID` (`participantID`),
+  ADD KEY `idx_participantID` (`participantID`),
+  ADD KEY `idx_participant_type` (`participant_type`),
+  ADD KEY `idx_event` (`event`),
+  ADD KEY `idx_division` (`division`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+
+--
+-- AUTO_INCREMENT for table `admin_action_log`
+--
+ALTER TABLE `admin_action_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `attendance_audit_log`
+--
+ALTER TABLE `attendance_audit_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `qr_compliance_remarks`
+--
+ALTER TABLE `qr_compliance_remarks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=509;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `admin_action_log`
+--
+ALTER TABLE `admin_action_log`
+  ADD CONSTRAINT `admin_action_log_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admin` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `attendance_audit_log`
+--
+ALTER TABLE `attendance_audit_log`
+  ADD CONSTRAINT `attendance_audit_log_ibfk_1` FOREIGN KEY (`attendance_id`) REFERENCES `attendance` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `attendance_audit_log_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `qr_compliance_remarks`
+--
+ALTER TABLE `qr_compliance_remarks`
+  ADD CONSTRAINT `qr_compliance_remarks_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

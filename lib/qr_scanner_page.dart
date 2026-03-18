@@ -4,10 +4,14 @@ import 'services/api_service.dart';
 
 class QRScannerPage extends StatefulWidget {
   final String coachUsername;
+  final String? sportCategory;
+  final String? role;
 
   const QRScannerPage({
     super.key,
     required this.coachUsername,
+    this.sportCategory,
+    this.role,
   });
 
   @override
@@ -74,11 +78,22 @@ class _QRScannerPageState extends State<QRScannerPage> {
         );
 
         // Send to API
+        print('=== SCAN DEBUG ===');
+        print('Coach: ${widget.coachUsername}');
+        print('Sport Category: ${widget.sportCategory}');
+        print('Role: ${widget.role}');
+        print('QR Code: $code');
+
         final result = await ApiService.scanQR(
           code,
           widget.coachUsername,
           'gate',
+          sportCategory: widget.sportCategory,
+          role: widget.role,
         );
+
+        print('API Response: $result');
+        print('==================');
 
         // Close loading
         if (mounted) Navigator.pop(context);

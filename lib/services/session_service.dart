@@ -5,12 +5,16 @@ class SessionService {
   static const _keyCoachName = 'coach_name';
   static const _keyProfileImage = 'profile_image';
   static const _keyIsLoggedIn = 'is_logged_in';
+  static const _keySportCategory = 'sport_category';
+  static const _keyRole = 'role';
 
   // Save session after login
   static Future<void> saveSession({
     required String username,
     required String coachName,
     String? profileImagePath,
+    String? sportCategory,
+    String? role,
   }) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_keyIsLoggedIn, true);
@@ -18,6 +22,12 @@ class SessionService {
     await prefs.setString(_keyCoachName, coachName);
     if (profileImagePath != null) {
       await prefs.setString(_keyProfileImage, profileImagePath);
+    }
+    if (sportCategory != null) {
+      await prefs.setString(_keySportCategory, sportCategory);
+    }
+    if (role != null) {
+      await prefs.setString(_keyRole, role);
     }
   }
 
@@ -28,6 +38,8 @@ class SessionService {
       'username': prefs.getString(_keyUsername),
       'coachName': prefs.getString(_keyCoachName),
       'profileImagePath': prefs.getString(_keyProfileImage),
+      'sportCategory': prefs.getString(_keySportCategory),
+      'role': prefs.getString(_keyRole),
     };
   }
 

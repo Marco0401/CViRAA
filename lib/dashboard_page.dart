@@ -8,12 +8,16 @@ class DashboardPage extends StatefulWidget {
   final String coachName;
   final String username;
   final String? profileImagePath;
+  final String? sportCategory;
+  final String? role;
 
   const DashboardPage({
     super.key,
     required this.coachName,
     required this.username,
     this.profileImagePath,
+    this.sportCategory,
+    this.role,
   });
 
   @override
@@ -55,6 +59,8 @@ class _DashboardPageState extends State<DashboardPage> {
       MaterialPageRoute(
         builder: (context) => QRScannerPage(
           coachUsername: widget.username,
+          sportCategory: widget.sportCategory,
+          role: widget.role,
         ),
       ),
     );

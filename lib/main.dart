@@ -55,6 +55,8 @@ class _SplashScreenState extends State<SplashScreen> {
             coachName: session['coachName'] ?? 'Coach',
             username: session['username'] ?? '',
             profileImagePath: session['profileImagePath'],
+            sportCategory: session['sportCategory'],
+            role: session['role'],
           ),
         ),
       );
@@ -118,16 +120,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) Navigator.pop(context);
 
       if (result['success']) {
-        // Login successful
         final userData = result['data'];
         final coachName = userData['full_name'] ?? userData['username'];
         const profileImage = 'lib/images/Final.png';
 
-        // Save session
         await SessionService.saveSession(
           username: userData['username'],
           coachName: coachName,
           profileImagePath: profileImage,
+          sportCategory: userData['sport_category'],
+          role: userData['role'],
         );
 
         if (mounted) {
@@ -138,6 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 coachName: coachName,
                 username: userData['username'],
                 profileImagePath: profileImage,
+                sportCategory: userData['sport_category'],
+                role: userData['role'],
               ),
             ),
           );
