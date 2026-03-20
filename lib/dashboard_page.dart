@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'qr_scanner_page.dart';
+import 'analytics_page.dart';
 import 'services/api_service.dart';
 import 'services/session_service.dart';
 import 'main.dart';
@@ -199,6 +200,44 @@ class _DashboardPageState extends State<DashboardPage> {
                               const SizedBox(width: 12),
                               const Text(
                                 'Scan QR Code',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 12),
+
+                        // Analytics Button
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AnalyticsPage(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blue[700],
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: BorderSide(color: Colors.blue[700]!),
+                            ),
+                            elevation: 0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.bar_chart, size: 28),
+                              const SizedBox(width: 12),
+                              const Text(
+                                'Analytics Dashboard',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

@@ -206,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           
                           // Title
                           Text(
-                            'CViRAA On-Site Tracking App',
+                            'CViRAA Athlete Tracking App',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               color: Colors.blue[800],
@@ -322,8 +322,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Image.asset(
                                 'lib/images/ICTLogo.png',
-                                height: 20,
-                                width: 20,
+                                height: 50,
+                                width: 50,
                               ),
                               const SizedBox(width: 12),
                               Column(
