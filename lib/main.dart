@@ -314,6 +314,43 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 24),
+
+                          // Footer
+                          Column(
+                            children: [
+                              Text(
+                                'Powered By',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[500],
+                                ),
+                              ),
+                              Text(
+                                'The ICT Department',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[700],
+                                ),
+                              ),
+                              Text(
+                                'DepEd Carcar City Division',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'All Rights Reserved 2026',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
