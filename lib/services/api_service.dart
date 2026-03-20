@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   // Change this to your computer's local IP address
   // Find it by running 'ipconfig' in cmd and look for IPv4 Address
-  static const String baseUrl = 'http://10.128.14.153/cviraa_app/api';
+  static const String baseUrl = 'https://cat.depedcarcarcity.com/api';
   
   // Login
   static Future<Map<String, dynamic>> login(String username, String password) async {
