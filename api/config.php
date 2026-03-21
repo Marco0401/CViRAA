@@ -11,7 +11,7 @@ date_default_timezone_set('Asia/Manila');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'cviraa_attendance_db');
+define('DB_NAME', 'depedcarcarcity_democat');
 
 // Create database connection
 function getDBConnection() {
@@ -23,7 +23,8 @@ function getDBConnection() {
             'message' => 'Database connection failed: ' . $conn->connect_error
         ]));
     }
-    
+    $conn->set_charset('utf8mb4');           // add this
+    $conn->query("SET time_zone = '+08:00'"); // add this
     return $conn;
 }
 

@@ -121,7 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (result['success']) {
         final userData = result['data'];
-        final coachName = userData['full_name'] ?? userData['username'];
+        final coachName = (userData['full_name'] != null && userData['full_name'].toString().isNotEmpty)
+            ? userData['full_name']
+            : userData['username'];
         const profileImage = 'lib/images/Final.png';
 
         await SessionService.saveSession(

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   // Change this to your computer's local IP address
   // Find it by running 'ipconfig' in cmd and look for IPv4 Address
-  static const String baseUrl = 'https://cat.depedcarcarcity.com/api';
+  static const String baseUrl = 'https://democat.depedcarcarcity.com/api';
   
   // Login
   static Future<Map<String, dynamic>> login(String username, String password) async {
@@ -22,10 +22,9 @@ class ApiService {
       try {
         return jsonDecode(response.body);
       } catch (e) {
-        // If JSON decode fails, return the raw response for debugging
         return {
           'success': false,
-          'message': 'Server error: ${response.body.substring(0, 100)}...',
+          'message': 'Server error [${response.statusCode}]: "${response.body}"',
         };
       }
     } catch (e) {
